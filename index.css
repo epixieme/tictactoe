@@ -1,0 +1,17 @@
+
+.mainContainer{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    gap: 30px;
+    border: 1px solid black;
+    
+}
+.squares{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(128, 1, 128,0.2);
+    box-shadow: 2px 6px red;
+    transition: 1s ease-in;
+    font-size: 100px
+}
