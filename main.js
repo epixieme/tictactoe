@@ -12,89 +12,71 @@
 
 ///
 
+const items = document.querySelectorAll(".squares");
 
-const squares = document.querySelectorAll(".squares");
-
-squares.forEach((square, index) =>
-  square.addEventListener("click", () => {
-    // HTML squares
-    game.setPlayer(square, index);
-  })
+let squares = Array.from(items);
+squares.forEach(
+  (
+    square,
+    index // HTML squares
+  ) =>
+    square.addEventListener("click", () => {
+      game.setHumanPlayer(square, index);
+    })
 );
 
 class Game {
-  constructor(cells, human,computer) {
+  constructor(cells, humanPlayer, computerPlayer, trackBoardCells) {
     this.cells = cells;
-    this.human = human;
-    this.computer = computer;
+    this.humanPlayer = humanPlayer;
+    this.computerPlayer = computerPlayer;
+    this.trackBoardCells = trackBoardCells;
   }
 
-  endGame() {
-    console.log("winner");
-    //reset board here to start again
+  setHumanPlayer(square, index) {
+    /// on click
+
+    const human = this.humanPlayer; // x
+
+    if (squares[index].innerHTML !== "") return;
+    let removeTrackingNum = this.trackBoardCells.indexOf(index + 1); // starting at index 0-8 0 will pick 1 has to be +1 or the number would be 0 which doesn't exist in tracking
+
+    this.trackBoardCells.splice(removeTrackingNum, 1); // if taken then remove it
+
+    squares[index].innerHTML = human;
+    this.setComputerPlayer(human, square, index);
+
+    //  this.boardArrayUpdate(square,index)
   }
 
-  setPlayer(boardSquare, index) {
-
-    const displayPlayer = document.querySelector(".display-player");
-    let computer = this.computer
-    let human = this.human
-    // if(boardSquare.innerText != "") return; // if square is already taken
-    boardSquare.innerText = human; // board square shows current player
-    this.boardArrayUpdate(index); // pass the index from squares forEach
-    const random =  Math.ceil(Math.random() * squares.length)-1
-  
-    if(squares[random].innerText==='') {
-      
-    squares[random].innerText = computer
-   
-
-    }else if(squares[random].innerText!==''){
-   
-        this.setPlayer(boardSquare, index)
-
-      
-      // squares[random].innerText = computer
-     
- 
-
-    }
-
-  //Gabriel (Monkious) — Today at 16:10
-// Hello, @Kirstie ! What i see in your code is that the AI is choosing a random square and, if it's empty, it fills it with the AI sign, else, it does nothing. This conditional will not prevent picking occupied squares, it will just ignore it!
-// Needle
-//  changed the channel name: 
-// Kirstie (2022-05-05)
-//  — Today at 16:10
-// Gabriel (Monkious) — Today at 16:13
-// I can see two fast approaches to this: 
-
-// 1. call the function again if the picked square is filled
-
-// or
-
-// 2. keep track of the empty squares with an array
-
-  this.winnerConditions();
+  randomNumGen(array) {
+    const randomNum = Math.floor(Math.random() * array.length); // generate random number
+    return randomNum;
   }
-  
-  // computerPlayer(boardSquare) {
-  //   console.log("computer move");
-  //   const random = Math.floor(Math.random() * this.cells.length);
-  //   console.log(random)
-  //   squares[random].innerText = this.currentPlayer
-  //   // items[computerIndex - 1].classList.add("computer");
 
-  //   // Splicing out the move from the tracking list
-  //   // tracking.splice(random, 1);
+  setComputerPlayer(human, square, index) {
+    const computer = this.computerPlayer;
+    const random = this.randomNumGen(this.trackBoardCells);
+    const computerIndex = this.trackBoardCells[random]; //use random number as index to pick from remaining available nums in trackboardcells array. This enables us to only pick available squares
+    squares[computerIndex - 1].innerHTML = computer;
+
+    this.trackBoardCells.splice(random, 1); // reduces length each time something is picked and removed
+    this.winnerConditions(human, computer);
+  }
+
+  boardReset() {
+    console.log("reset");
+  }
+
+  // boardArrayUpdate(square, index) {
+  //   // this.cells[index] = square; // update empty array with current player x
   // }
 
-  boardArrayUpdate(index) {
-    this.cells[index] = this.currentPlayer; // update empty array with current player
-  }
+  winnerConditions(human, computer) {
+    let array = squares.map((item) => item.innerHTML);
 
-  winnerConditions() {
-   
+    console.log(human);
+
     let winnerCombinations = [
       // different winning combinations moves
       [0, 1, 2],
@@ -107,19 +89,36 @@ class Game {
       [2, 4, 6],
     ];
     // console.log(this.cells[winnerCombinations[0]])
+
     for (let i = 0; i < winnerCombinations.length; i++) {
+      // console.log(array)
       let winner = winnerCombinations[i]; //breaks down to individual arrays
-
-      let cellOne = this.cells[winner[0]]; // breaks down all the array to numbers vertically
-
-      let cellTwo = this.cells[winner[1]]; // breaks down all the array to numbers vertically
-      let cellThree = this.cells[winner[2]]; // breaks down all the array to numbers vertically
-      if (cellOne === cellTwo && cellTwo === cellThree) {
+      console.log(array);
+      let cellOne = array[winner[0]];
+      console.log("this is cellone " + cellOne);
+      let cellTwo = array[winner[1]];
+      console.log("this is celltwo " + cellTwo);
+      let cellThree = array[winner[2]];
+      console.log("this is cellthree " + cellThree);
+      
+      if (
+        (cellOne === human && cellTwo === human && cellThree === human) ||
+        (cellOne === computer && cellTwo === computer && cellThree === computer)
+      ) {
+        alert("winner");
         //if the cells selected match any of the combos then win. So all 3 equal each other then announce game won by player n and reset board
-       
       }
     }
   }
+  endGame() {
+    // console.log("winner");
+    //reset board here to start again
+  }
 }
 //new object instance
-let game = new Game(["", "", "", "", "", "", "", "", ""], "x","o"); //this.cells,currentPlayer,active
+let game = new Game(
+  ["", "", "", "", "", "", "", "", ""],
+  "x",
+  "o",
+  [1, 2, 3, 4, 5, 6, 7, 8, 9]
+); //this.cells,currentPlayer,active
