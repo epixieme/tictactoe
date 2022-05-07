@@ -51,20 +51,22 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: grey;
+    background: white;
+
 }
 
 .squareContainer {
     display: grid;
     justify-content: center;
-
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 150px 150px 150px;
+    grid-template-rows: 150px 150px 150px;
     /* gap: 30px; */
     animation-duration: 2s;
     animation-iteration-count: 1;
-    height: 50vh;
-    width: 50vw;
+    height: 80vh;
+    min-width: 30%;
+
+
 
 
 }
@@ -81,11 +83,11 @@ header {
     font-family: 'Nunito', sans-serif;
     background: #2a9d8f;
     border-radius: 20px;
-    
+    min-width: 30%;
 }
 
-.hide{
-    display:none;
+.hide {
+    display: none;
 }
 
 button {
