@@ -14,75 +14,126 @@
 }
 
 .clear {
-   clear: both;
+    clear: both;
 }
 
 /******************************************
 /* BASE STYLES
 /*******************************************/
-html{
+html {
     font-size: 100%;
 }
 
-body {
-
-}
+body {}
 
 
 /******************************************
 /* LAYOUT
 /*******************************************/
-header{
+header {
     font-size: 2rem;
     font-family: 'Nunito', sans-serif;
     display: flex;
     justify-content: center;
     background: #289D8F;
-    color:white;
+    color: white;
     text-shadow: 1px 1px 1px #000;
 }
-.display{
+
+.display {
     display: flex;
     justify-content: center;
 }
-.main{
+
+.main {
     height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background:grey;
+    background: grey;
 }
-.squareContainer{
+
+.squareContainer {
     display: grid;
     justify-content: center;
+
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
     /* gap: 30px; */
-  
-height:50vh;
-width:50vw;
-   
-    
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    height: 50vh;
+    width: 50vw;
+
+
 }
-.squares{
+
+.squares {
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: white;
     box-shadow: 2px 6px #022c27;
-    border:1px solid black;
+    border: 1px solid black;
     transition: 1s ease-in;
     font-size: 6rem;
     font-family: 'Nunito', sans-serif;
-    background:#2a9d8f;
-    border-radius: 20px;;
+    background: #2a9d8f;
+    border-radius: 20px;
+    
 }
 
-button{
-    width:10%;
-    height:10%;
+.hide{
+    display:none;
+}
+
+button {
+    width: 10%;
+    height: 10%;
     border-radius: 10px;
 }
+
+
+.bounce {
+    animation-name: bounce;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+
+    10% {
+        transform: scale(1.1, .9) translateY(0);
+    }
+
+    30% {
+        transform: scale(.9, 1.1) translateY(-100px);
+    }
+
+    50% {
+        transform: scale(1.05, .95) translateY(0);
+    }
+
+    57% {
+        transform: scale(1, 1) translateY(-7px);
+    }
+
+    64% {
+        transform: scale(1, 1) translateY(0);
+    }
+
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
+}
+
+
+
+Resources
+
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
