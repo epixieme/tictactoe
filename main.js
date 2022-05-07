@@ -65,8 +65,12 @@ class Game {
     if (squares[index].innerHTML !== "") return;
     let removeTrackingNum = this.trackBoardCells.indexOf(index + 1); // starting at index 0-8 0 will pick 1 has to be +1 or the number would be 0 which doesn't exist in tracking
     this.trackBoardCells.splice(removeTrackingNum, 1); // if taken then remove it
-    squares[index].innerHTML = human;
-    this.setComputerPlayer(squares, human, square, index);
+
+    squares[index].innerHTML =    squares[index].innerHTML ===human?this.computer:human
+    setTimeout(()=>{
+      this.setComputerPlayer(squares, human, square, index);
+    },1000); 
+
   }
 
   randomNumGen(array) {
@@ -113,7 +117,6 @@ class Game {
       const cellThree = array[winner[2]].innerHTML;
 
       if (
-        // array.length <= 10 &&
         cellOne === human &&
         cellTwo === human &&
         cellThree === human
@@ -133,9 +136,12 @@ class Game {
         alert(`${computer} winner`);
         this.boardStyles(squares, array, winner);
         this.updatePlayerScore();
-      } else if (this.trackBoardCells.length === 1) {
-        win === false;
+      } else if (this.trackBoardCells.length === 1 && win === false) {
+        win === false;// tie not working
         alert("tie");
+      
+          this.boardReset(squares);
+      
       }
     });
   }
@@ -144,7 +150,9 @@ class Game {
     const winningStyles = array.filter((item, i) =>
       i <= 2 ? (array[winner[i]].style.background = "white") : "none"
     );
-    this.boardReset(squares);
+    setTimeout(()=>{
+      this.boardReset(squares);
+    },2000); 
   }
 
   boardReset(squares) {

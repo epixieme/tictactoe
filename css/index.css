@@ -46,7 +46,7 @@ header {
 }
 
 .main {
-    height: 80vh;
+    height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,8 +58,10 @@ header {
 .squareContainer {
     display: grid;
     justify-content: center;
-    grid-template-columns: 150px 150px 150px;
-    grid-template-rows: 150px 150px 150px;
+
+   
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
     /* gap: 30px; */
     animation-duration: 2s;
     animation-iteration-count: 1;
