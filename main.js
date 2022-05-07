@@ -12,18 +12,22 @@
 
 ///
 
-const items = document.querySelectorAll(".squares");
+// const items = document.querySelectorAll(".squares");
 
-let squares = Array.from(items);
-squares.forEach(
-  (
-    square,
-    index // HTML squares
-  ) =>
-    square.addEventListener("click", () => {
-      game.setHumanPlayer(square, index);
-    })
-);
+// let squares = Array.from(items);
+// squares.forEach(
+//   (
+//     square,
+//     index // HTML squares
+//   ) =>
+//     square.addEventListener("click", () => {
+//       game.setHumanPlayer(square, index);
+//     })
+// );
+
+document.querySelector("button").addEventListener("click", () => {
+  game.gameStart();
+});
 
 class Game {
   constructor(cells, humanPlayer, computerPlayer, trackBoardCells) {
@@ -33,20 +37,27 @@ class Game {
     this.trackBoardCells = trackBoardCells;
   }
 
-  setHumanPlayer(square, index) {
-    /// on click
+  gameStart() {
+    const items = document.querySelectorAll(".squares");
+    let squares = Array.from(items);
+    squares.forEach(
+      (
+        square,
+        index // HTML squares
+      ) =>
+        square.addEventListener("click", () => {
+          this.setHumanPlayer(squares, square, index);
+        })
+    );
+  }
 
+  setHumanPlayer(squares, square, index) {
     const human = this.humanPlayer; // x
-
     if (squares[index].innerHTML !== "") return;
     let removeTrackingNum = this.trackBoardCells.indexOf(index + 1); // starting at index 0-8 0 will pick 1 has to be +1 or the number would be 0 which doesn't exist in tracking
-
     this.trackBoardCells.splice(removeTrackingNum, 1); // if taken then remove it
-
     squares[index].innerHTML = human;
-    this.setComputerPlayer(human, square, index);
-
-    //  this.boardArrayUpdate(square,index)
+    this.setComputerPlayer(squares, human, square, index);
   }
 
   randomNumGen(array) {
@@ -54,30 +65,22 @@ class Game {
     return randomNum;
   }
 
-  setComputerPlayer(human, square, index) {
+  setComputerPlayer(squares, human, square, index) {
     const computer = this.computerPlayer;
     const random = this.randomNumGen(this.trackBoardCells);
     const computerIndex = this.trackBoardCells[random]; //use random number as index to pick from remaining available nums in trackboardcells array. This enables us to only pick available squares
     squares[computerIndex - 1].innerHTML = computer;
 
     this.trackBoardCells.splice(random, 1); // reduces length each time something is picked and removed
-    this.winnerConditions(human, computer);
+    this.winnerConditions(squares, human, computer);
   }
 
-  boardReset() {
-    console.log("reset");
-  }
-
-  // boardArrayUpdate(square, index) {
-  //   // this.cells[index] = square; // update empty array with current player x
-  // }
-
-  winnerConditions(human, computer) {
-    let array = squares.map((item) => item.innerHTML);
+  winnerConditions(squares, human, computer) {
+    let array = squares.map((item) => item);
 
     console.log(human);
 
-    let winnerCombinations = [
+    const waysToWin = [
       // different winning combinations moves
       [0, 1, 2],
       [3, 4, 5],
@@ -88,33 +91,41 @@ class Game {
       [0, 4, 8],
       [2, 4, 6],
     ];
-    // console.log(this.cells[winnerCombinations[0]])
 
-    for (let i = 0; i < winnerCombinations.length; i++) {
+    for (let i = 0; i < waysToWin.length; i++) {
       // console.log(array)
-      let winner = winnerCombinations[i]; //breaks down to individual arrays
-      console.log(array);
-      let cellOne = array[winner[0]];
-      console.log("this is cellone " + cellOne);
-      let cellTwo = array[winner[1]];
-      console.log("this is celltwo " + cellTwo);
-      let cellThree = array[winner[2]];
-      console.log("this is cellthree " + cellThree);
-      
-      if (
-        (cellOne === human && cellTwo === human && cellThree === human) ||
-        (cellOne === computer && cellTwo === computer && cellThree === computer)
+      const winner = waysToWin[i]; //breaks down to individual arrays
+      const cellOne = array[winner[0]].innerHTML;
+      const cellTwo = array[winner[1]].innerHTML;
+      const cellThree = array[winner[2]].innerHTML;
+
+      if (cellOne === human && cellTwo === human && cellThree === human) {
+        alert(`${human} winner`);
+        array[winner[0]].style.background = "white";
+        array[winner[1]].style.background = "white";
+        array[winner[2]].style.background = "white";
+      } else if (
+        cellOne === computer &&
+        cellTwo === computer &&
+        cellThree === computer
       ) {
-        alert("winner");
-        //if the cells selected match any of the combos then win. So all 3 equal each other then announce game won by player n and reset board
+        alert(`${computer} winner`);
       }
+      //if the cells selected match any of the combos then win. So all 3 equal each other then announce game won by player n and reset board
     }
   }
+
+
   endGame() {
     // console.log("winner");
     //reset board here to start again
   }
+
+  boardReset() {
+    console.log("reset");
+  }
 }
+
 //new object instance
 let game = new Game(
   ["", "", "", "", "", "", "", "", ""],

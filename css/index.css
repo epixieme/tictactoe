@@ -1,0 +1,93 @@
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clear {
+   clear: both;
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+html{
+    font-size: 100%;
+}
+
+body {
+
+}
+
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+header{
+    font-size: 2rem;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: center;
+    background: #289D8F;
+    color:white;
+    text-shadow: 1px 1px 1px #000;
+}
+.display{
+    display: flex;
+    justify-content: center;
+}
+.main{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background:grey;
+}
+.squareContainer{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    /* gap: 30px; */
+  
+height:50vh;
+width:50vw;
+   
+    
+}
+.squares{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 2px 6px #022c27;
+    border:1px solid black;
+    transition: 1s ease-in;
+    font-size: 6rem;
+    font-family: 'Nunito', sans-serif;
+    background:#2a9d8f;
+    border-radius: 20px;;
+}
+
+button{
+    width:10%;
+    height:10%;
+    border-radius: 10px;
+}
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+@media screen and (max-width: 800px) {
+    section {
+        background: blue;
+    }
+}
