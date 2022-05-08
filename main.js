@@ -25,13 +25,15 @@ class Game {
     computerPlayer,
     trackBoardCells,
     playerCount,
-    computerCount
+    computerCount,
+    winner
   ) {
     this.playerCount = playerCount;
     this.computerCount = computerCount;
     this.humanPlayer = humanPlayer;
     this.computerPlayer = computerPlayer;
     this.trackBoardCells = trackBoardCells; //  presets
+    this.winner = winner;
   }
 
   updatePlayerScore() {
@@ -65,12 +67,12 @@ class Game {
     if (squares[index].innerHTML !== "") return;
     let removeTrackingNum = this.trackBoardCells.indexOf(index + 1); // starting at index 0-8 0 will pick 1 has to be +1 or the number would be 0 which doesn't exist in tracking
     this.trackBoardCells.splice(removeTrackingNum, 1); // if taken then remove it
-
-    squares[index].innerHTML =    squares[index].innerHTML ===human?this.computer:human
-    setTimeout(()=>{
+    squares[index].innerHTML =
+      squares[index].innerHTML === human ? this.computer : human;
+    setTimeout(() => {
+      console.log(this.trackBoardCells.length);
       this.setComputerPlayer(squares, human, square, index);
-    },1000); 
-
+    }, 1000);
   }
 
   randomNumGen(array) {
@@ -82,14 +84,10 @@ class Game {
     const computer = this.computerPlayer;
     const random = this.randomNumGen(this.trackBoardCells);
     const computerIndex = this.trackBoardCells[random]; //use random number as index to pick from remaining available nums in trackboardcells array. This enables us to only pick available squares
-    squares[computerIndex - 1].innerHTML = computer;
-
-    if (this.trackBoardCells.length > 2) {
-      // set to counteract addng the computer when there are no more squares
-      this.trackBoardCells.splice(random, 1);
+    if (this.trackBoardCells.length > 0) {
+      squares[computerIndex - 1].innerHTML = computer;
     }
-    // reduces length each time something is picked and removed
-    console.log(this.trackBoardCells.length);
+    this.trackBoardCells.splice(random, 1);
     this.winnerConditions(squares, human, computer);
   }
 
@@ -108,8 +106,7 @@ class Game {
       [2, 4, 6],
     ];
 
-    let win = true;
-
+    let winOrTie = document.querySelector(".winOrTie h2");
     waysToWin.forEach((_, i) => {
       const winner = waysToWin[i]; //breaks down to individual arrays
       const cellOne = array[winner[0]].innerHTML;
@@ -117,31 +114,24 @@ class Game {
       const cellThree = array[winner[2]].innerHTML;
 
       if (
-        cellOne === human &&
-        cellTwo === human &&
-        cellThree === human
+        this.trackBoardCells.length >= 0 &&
+        cellOne === cellTwo &&
+        cellTwo === cellThree &&
+        cellOne != ""
       ) {
         this.playerCount += 1;
-        win === true;
-        alert(`${human} winner`);
+        winOrTie.textContent = `${cellOne} winner`;
+        this.winner = true;
         this.boardStyles(squares, array, winner);
         this.updatePlayerScore();
-      } else if (
-        cellOne === computer &&
-        cellTwo === computer &&
-        cellThree === computer
-      ) {
-        this.computerCount += 1;
-        win === true;
-        alert(`${computer} winner`);
-        this.boardStyles(squares, array, winner);
-        this.updatePlayerScore();
-      } else if (this.trackBoardCells.length === 1 && win === false) {
-        win === false;// tie not working
-        alert("tie");
-      
+      }
+
+      if (!this.winner && this.trackBoardCells.length === 0) {
+        winOrTie.textContent = "tie";
+        setTimeout(() => {
+          // this.boardReset(squares);
           this.boardReset(squares);
-      
+        }, 2000);
       }
     });
   }
@@ -150,12 +140,14 @@ class Game {
     const winningStyles = array.filter((item, i) =>
       i <= 2 ? (array[winner[i]].style.background = "white") : "none"
     );
-    setTimeout(()=>{
+    setTimeout(() => {
       this.boardReset(squares);
-    },2000); 
+    }, 2000);
   }
 
   boardReset(squares) {
+    this.winner = false;
+    console.log(this.winner);
     this.trackBoardCells = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     squares.forEach((square, index) => {
       square.innerHTML = "";
@@ -174,5 +166,9 @@ let game = new Game(
   "o",
   [1, 2, 3, 4, 5, 6, 7, 8, 9],
   playerCount,
-  computerCount
+  computerCount,
+  false
 ); //this.cells,currentPlayer,active
+
+//bug if everyone chooses in one line then both can win
+//cannot remove event listener
