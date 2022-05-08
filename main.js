@@ -36,7 +36,7 @@ class Game {
     this.winner = winner;
   }
 
-  updatePlayerScore() {
+  updatePlayerScore(cellOne) {
     let playerText = document.querySelector(".score-human h2");
     playerText.textContent = `Human ${this.playerCount} | Computer ${this.computerCount}`;
   }
@@ -119,9 +119,10 @@ class Game {
         cellTwo === cellThree &&
         cellOne != ""
       ) {
-        this.playerCount += 1;
+       
         winOrTie.textContent = `${cellOne} winner`;
         this.winner = true;
+        cellOne==='x'?this.playerCount += 1:this.computerCount+=1;
         this.boardStyles(squares, array, winner);
         this.updatePlayerScore();
       }
@@ -170,5 +171,9 @@ let game = new Game(
   false
 ); //this.cells,currentPlayer,active
 
+
+///know bugs
+
 //bug if everyone chooses in one line then both can win
 //cannot remove event listener
+//squares can be clicked on whihc increases score. seems to be if you click over winning cells numerous times
