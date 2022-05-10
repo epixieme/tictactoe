@@ -104,8 +104,8 @@ button{
     display:flex;
     justify-content: center;
 position: absolute;
-top:250px;
-left:70px;
+top:270px;
+
 font-size: 4rem;
 font-family: 'Indie Flower', cursive;
 color:#A6266E;
@@ -191,9 +191,10 @@ header{
     text-align: center;
 }
 .winOrTie{
-    top:260px;
+    text-align: center;
+    top:300px;
     font-size: 3rem;
-    left:70px;
+    left:50px;
 }
 }
 

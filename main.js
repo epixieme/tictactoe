@@ -220,6 +220,7 @@ let game = new Game(
 ///know bugs
 
 //bug if everyone chooses in one line then both can win
-//cannot remove event listener or stop sqaures being clicked on after win
+//cannot remove event listener or stop squares being clicked on after win
 //make responsive
 //squares can be clicked on which increases score. seems to be if you click over winning cells numerous times
+
