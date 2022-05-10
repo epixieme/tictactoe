@@ -39,7 +39,7 @@ header {
     font-family: 'Fredoka One', cursive;
     display: flex;
     justify-content: center;
-    /* background: #289D8F; */
+    align-items: center;
     color:#f49acd;
     text-shadow: 1px 1px 1px #000;
     background-color: #289d8f;
@@ -101,8 +101,11 @@ button{
  
 }
 .winOrTie{
+    display:flex;
+    justify-content: center;
 position: absolute;
 top:250px;
+left:70px;
 font-size: 4rem;
 font-family: 'Indie Flower', cursive;
 color:#A6266E;
@@ -174,11 +177,24 @@ button {
         transform: scale(1, 1) translateY(0);
     }
 }
-
-
-
-Resources
+/* Resources */
 
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+@media only screen 
+  and (min-device-width: 300px) 
+  and (max-device-width: 900px) 
+ { 
+header{
+    font-size: 1.8rem;
+    text-align: center;
+}
+.winOrTie{
+    top:260px;
+    font-size: 3rem;
+    left:70px;
+}
+}
+
+
