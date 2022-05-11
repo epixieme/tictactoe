@@ -41,11 +41,9 @@ class Game {
     playerStartText.classList.remove("hide");
     console.log(playerStartText.classList);
     button.classList.add("hide");
-
     squareContainer.classList.add("bounce");
     const items = document.querySelectorAll(".squares");
     let squares = Array.from(items);
-
     squares.forEach((square, index) =>
       square.addEventListener(
         "click",
@@ -60,27 +58,21 @@ class Game {
     playerStartText.classList.add("hide");
     const removeTrackingNum = this.trackBoardCells.indexOf(index + 1); // starting at index 0-8 0 will pick 1 has to be +1 or the number would be 0 which doesn't exist in tracking
     this.trackBoardCells.splice(removeTrackingNum, 1);
-      this.winnerConditions(squares,this.humanPlayer)
-    
+    this.winnerConditions(squares, this.humanPlayer);
   }
 
-  SetComputerPlayers(squares){
-
+  SetComputerPlayers(squares) {
     const random = this.randomNumGen(this.trackBoardCells);
     const computerIndex = this.trackBoardCells[random]; //use random number as index to pick from remaining available nums in trackboardcells array. This enables us to only pick available squares
-  
     squares[computerIndex - 1].innerHTML = this.computerPlayer;
-  
     this.trackBoardCells.splice(random, 1);
-    this.winnerConditions(squares)
+    this.winnerConditions(squares);
   }
-
 
   randomNumGen(array) {
     const randomNum = Math.floor(Math.random() * array.length); // generate random number
     return randomNum;
   }
-
 
   winnerConditions(squares, player) {
     // setTimeout(() => {
@@ -122,35 +114,34 @@ class Game {
         cellOne === "x" ? (this.playerCount += 1) : (this.computerCount += 1);
 
         setTimeout(() => {
-          // squares.forEach(sq=>sq.classList.add('hide'))
-          const players = cellOne === "x" ? "Human" : "Computer";
+          const players = cellOne === this.human ? "Human" : "Computer";
           winOrTie.textContent = `${players.toUpperCase()} WINS`;
         }, 1000);
-        this.updatePlayerScore(winOrTie);
+
+       
+
         setTimeout(() => {
+          this.updatePlayerScore(winOrTie);
           this.boardReset(winOrTie, squares);
         }, 900);
-        return
-      }}
-
-      if (!this.winner && this.trackBoardCells.length === 0) {
-        setTimeout(() => {
-          winOrTie.textContent = "IT'S A TIE";
-        }, 1000);
-        console.log("tie");
-        // squares.forEach(sq=>sq.classList.add('hide'))
-
-        // this.boardReset(squares);
-        setTimeout(() => {
-          this.boardReset(winOrTie, squares);
-        }, 900);
-        return
+        return;
       }
-      if (player === this.humanPlayer){
-        setTimeout(() => {
-        this.SetComputerPlayers(squares)
+    }
+
+    if (!this.winner && this.trackBoardCells.length === 0) {
+      setTimeout(() => {
+        winOrTie.textContent = "IT'S A TIE";
+      }, 1000);
+      setTimeout(() => {
+        this.boardReset(winOrTie, squares);
+      }, 900);
+      return;
+    }
+    if (player === this.humanPlayer) {
+      setTimeout(() => {
+        this.SetComputerPlayers(squares);
       }, 500);
-      }
+    }
   }
 
   updatePlayerScore(winOrTie) {
@@ -166,8 +157,12 @@ class Game {
   }
 
   boardReset(winOrTie, squares) {
-squares.forEach((square,index)=>square.removeEventListener("click",
-this.setHumanPlayers.bind(this, squares, square, index)))
+    squares.forEach((square, index) =>
+      square.removeEventListener(
+        "click",
+        this.setHumanPlayers.bind(this, squares, square, index)
+      )
+    );
 
     setTimeout(() => {
       winOrTie.innerText = "";
@@ -181,7 +176,6 @@ this.setHumanPlayers.bind(this, squares, square, index)))
       square.innerHTML = "";
       square.style.background = "#289d8f";
       square.classList.remove("hide");
-     
     });
   }
   // gameOver(winOrTie){
@@ -192,6 +186,19 @@ this.setHumanPlayers.bind(this, squares, square, index)))
   // }
 }
 
+class Emoji extends Game{
+  constructor(humanPlayer){
+    super(humanPlayer)
+    this.icon=icon
+    console.log(super(humanPlayer))
+   
+  }
+  get icon(){
+    return this._icon
+
+  }
+
+}
 let playerCount = 0;
 let computerCount = 0;
 //new object instance
@@ -204,6 +211,7 @@ let game = new Game(
   false
 );
 
+
 //this.cells,currentPlayer,active
 
 // let emojis = new Game(
@@ -214,7 +222,7 @@ let game = new Game(
 //   computerCount,
 //   false
 // );
-///know bugs
+///known bugs
 
 //bug if everyone chooses in one line then both can win - fixed
 //cannot remove event listener or stop squares being clicked on after win
