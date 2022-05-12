@@ -34,10 +34,6 @@ body {
 /******************************************
 /* LAYOUT
 /*******************************************/
-.mainContainer{
-    display: flex;
-
-}
 header {
     font-size: 2rem;
     font-family: 'Fredoka One', cursive;
@@ -62,12 +58,9 @@ h1 {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
-.display {
-    display: flex;
-    justify-content: center;
+.score-human {
+    font-family: 'Fredoka One', cursive;
 }
-
 .main {
     height: 100vh;
     display: flex;
@@ -79,7 +72,6 @@ h1 {
     width: 100%;
 
 }
-
 .squareContainer {
     display: grid;
     justify-content: center;
@@ -90,28 +82,6 @@ h1 {
     animation-iteration-count: 1;
     height: 50vh;
     min-width: 100%;
-}
-
-
-button {
-    background: #A6266E;
-    color: white;
-    font-family: 'Fredoka One', cursive;
-    border: none;
-    box-shadow: 3px 6px 16px -4px #000000;
-
-}
-
-.winOrTie {
-    position: absolute;
-    top: 270px;
-    text-align: center;
-    font-size: 4rem;
-    font-family: 'Indie Flower', cursive;
-    color: #A6266E;
-    transform: rotate(-30deg);
-    display: block;
-    background-color: transparent;
 }
 
 .squares {
@@ -129,45 +99,82 @@ button {
     min-width: 30%;
 }
 
-.hide {
-    display: none;
+.display {
+    display: flex;
+    justify-content: center;
 }
 
-.score-human {
-    font-family: 'Fredoka One', cursive;
-}
 
 button {
+    background: #A6266E;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    border: none;
+    box-shadow: 3px 6px 16px -4px #000000;
+    transition: ease 1s;
+    width: 5%;
     min-width: 20%;
     min-height: 8%;
     border-radius: 10px;
 
 }
-.icons{
-    position: relative;
-  
-    width:15%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height:15%;
-    transform: rotate(90deg);
-    top:-390px;
-    left:300px;
-    gap:30px;
+
+
+button:hover {
+
+    transform: scale(1.1);
+    background: #F39ACD
 }
 
-.icons li{
+.winOrTie {
+    position: absolute;
+    top: 270px;
+    text-align: center;
+    font-size: 4rem;
+    font-family: 'Indie Flower', cursive;
+    color: #A6266E;
+    transform: rotate(-30deg);
+    display: block;
+    background-color: transparent;
+}
+
+
+
+.hide {
+    display: none;
+}
+
+
+
+
+
+.icons {
+    padding: 0;
     display: flex;
     justify-content: center;
-    list-style: none;
     align-items: center;
+    height: 15%;
+    width: 15%;
+
+    gap: 30px;
+
 }
-svg{
-  height:100%;
-  width:100%;
- fill:#A6266E;
-    
+
+.icons li {
+    list-style: none;
+    transition: ease 1s;
+
+}
+
+.icons li:hover {
+    transform: scale(1.2);
+}
+
+svg {
+    height: 20px;
+    width: 20px;
+    fill: #A6266E;
+
 }
 
 
@@ -223,4 +230,22 @@ svg{
         font-size: 3rem;
         left: 50px;
     }
+
+    .icons {
+
+        position: none;
+        width: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15%;
+        transform: none;
+        top: 0;
+        left: 0;
+
+
+        gap: 30px;
+
+    }
+
 }
