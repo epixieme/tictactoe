@@ -34,6 +34,10 @@ body {
 /******************************************
 /* LAYOUT
 /*******************************************/
+.mainContainer{
+    display: flex;
+
+}
 header {
     font-size: 2rem;
     font-family: 'Fredoka One', cursive;
@@ -65,12 +69,14 @@ h1 {
 }
 
 .main {
-    height: 70vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background: #e9bbd5;
+    border: 1px solid red;
+    width: 100%;
 
 }
 
@@ -83,7 +89,7 @@ h1 {
     animation-duration: 2s;
     animation-iteration-count: 1;
     height: 50vh;
-    min-width: 30%;
+    min-width: 100%;
 }
 
 
@@ -133,9 +139,35 @@ button {
 
 button {
     min-width: 20%;
-    min-height: 10%;
+    min-height: 8%;
     border-radius: 10px;
 
+}
+.icons{
+    position: relative;
+  
+    width:15%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:15%;
+    transform: rotate(90deg);
+    top:-390px;
+    left:300px;
+    gap:30px;
+}
+
+.icons li{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    align-items: center;
+}
+svg{
+  height:100%;
+  width:100%;
+ fill:#A6266E;
+    
 }
 
 
